@@ -1,21 +1,21 @@
-import React, {ChangeEvent, FC} from 'react';
+import React, {FC} from 'react';
 import s from './input.module.scss'
+import {FieldInputProps} from "formik";
 
 type PropsType = {
   component: 'input' | 'textarea'
   title: string
-  value: string
-  onChange: (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => void
-  name: string
+  dataFormik: FieldInputProps<any>
+
 }
 
-export const Input: FC<PropsType> = ({title, component, value, onChange, name}) => {
+export const Input: FC<PropsType> = ({title, component, dataFormik}) => {
   return (
     <div className={s.inputContainer}>
       <span>{title}</span>
       {component === 'input'
-        ? <input type="text" value={value} onChange={onChange} name={name}/>
-        : <textarea value={value} onChange={onChange} name={name}></textarea>
+        ? <input type="text" {...dataFormik}/>
+        : <textarea {...dataFormik}></textarea>
       }
     </div>
   );

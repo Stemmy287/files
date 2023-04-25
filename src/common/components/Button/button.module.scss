@@ -9,4 +9,16 @@
   padding: 10px;
   font-size: 20px;
   font-weight: 700;
+  min-width: 100px;
+  &:disabled{
+    background-color: #f183a2;
+    cursor: auto;
+  }
+}
+
+.noBorder {
+  background-color: #fff;
+  color: #F8346B;
+  border: 2px #F8346B solid;
+  box-shadow: none;
 }

@@ -25,7 +25,7 @@ export const Files = () => {
     <div className={s.filesContainer}>
       <Button title={'Добавить файл'} callback={() => {setIsActive(true)}}/>
       <div className={s.filesList}>
-        {files.map(fl => <File key={fl.id} file={fl}/> )}
+        {files.map(fl => <File key={fl.id} file={fl}/>)}
       </div>
       <PopUp isActive={isActive} onClose={() => setIsActive(false)}>
         <AddFile onClose={() => setIsActive(false)}/>

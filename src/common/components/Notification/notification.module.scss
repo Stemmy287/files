@@ -1,0 +1,18 @@
+.container {
+  width: 300px;
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    padding: 0 25px;
+    .message {
+      margin: 37px 0;
+      text-align: center;
+    }
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 37px;
+    }
+  }
+}
