@@ -5,6 +5,9 @@ import {fetchFilesTC} from "features/Files/filesSlice";
 import {useAppSelector} from "hooks/useAppSelector";
 import {filesSelector} from "features/Files/filesSelectors";
 import {File} from "features/Files/File/File";
+import {Button} from "common/components/Button/Button";
+import {PopUp} from "common/components/PopUp/PopUp";
+import {AddFile} from "common/components/AddFile/AddFile";
 
 export const Files = () => {
 
@@ -18,7 +21,13 @@ export const Files = () => {
 
   return (
     <div className={s.filesContainer}>
-      {files.map(fl => <File key={fl.id} file={fl}/>)}
+      <Button title={'Добавить файл'}/>
+      <div className={s.filesList}>
+        {files.map(fl => <File key={fl.id} file={fl}/> )}
+      </div>
+      <PopUp isActive={true} setIsActive={() => {}}>
+        <AddFile/>
+      </PopUp>
     </div>
   );
 };

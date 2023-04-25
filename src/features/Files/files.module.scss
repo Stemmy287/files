@@ -1,7 +1,14 @@
 .filesContainer {
-  display: flex;
-  justify-content: center;
   padding: 70px;
-  flex-wrap: wrap;
-  gap: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 30px;
+
+  .filesList {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+  }
 }

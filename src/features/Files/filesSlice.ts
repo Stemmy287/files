@@ -11,10 +11,10 @@ export const fetchFilesTC = createAsyncThunk('files/fetchFiles', async (param, {
   }
 
 })
-export const fetchFileTC = createAsyncThunk('files/fetchFiles', async (param: {id: number}, {dispatch, rejectWithValue}) => {
+export const fetchFileTC = createAsyncThunk('files/fetchFiles', async (param: {fileId: number}, {dispatch, rejectWithValue}) => {
 
   try {
-    const res = await filesApi.getFile(param.id)
+    const res = await filesApi.getFile(param.fileId)
     dispatch(setFile({file: res}))
   } catch (e) {
     return rejectWithValue(null)
@@ -31,22 +31,22 @@ export const createFileTC = createAsyncThunk('files/fetchFiles', async (param: {
   }
 
 })
-export const deleteFileTC = createAsyncThunk('files/fetchFiles', async (param: {id: number}, {dispatch, rejectWithValue}) => {
+export const deleteFileTC = createAsyncThunk('files/fetchFiles', async (param: {fileId: number}, {dispatch, rejectWithValue}) => {
 
   try {
-    await filesApi.deleteFile(param.id)
-    dispatch(deleteFile({id: param.id}))
+    await filesApi.deleteFile(param.fileId)
+    dispatch(deleteFile({fileId: param.fileId}))
   } catch (e) {
     return rejectWithValue(null)
   }
 
 })
 
-export const updateFileTC = createAsyncThunk('files/fetchFiles', async (param: {id: number, modelFile: UpdateFileType}, {dispatch, rejectWithValue}) => {
+export const updateFileTC = createAsyncThunk('files/fetchFiles', async (param: {fileId: number, modelFile: UpdateFileType}, {dispatch, rejectWithValue}) => {
 
   try {
-    const res = await filesApi.updateFile(param.id, param.modelFile)
-    dispatch(updateFile({id: param.id, file: res}))
+    const res = await filesApi.updateFile(param.fileId, param.modelFile)
+    dispatch(updateFile({fileId: param.fileId, file: res}))
   } catch (e) {
     return rejectWithValue(null)
   }
@@ -69,15 +69,15 @@ const slice = createSlice({
     createFile(state, action: PayloadAction<{file: FileType}>) {
       state.files.unshift(action.payload.file)
     },
-    deleteFile(state, action: PayloadAction<{id: number}>) {
-      const index = state.files.findIndex(fl => fl.id === action.payload.id)
+    deleteFile(state, action: PayloadAction<{fileId: number}>) {
+      const index = state.files.findIndex(fl => fl.id === action.payload.fileId)
 
       if(index > -1) {
         state.files.splice(index, 1)
       }
     },
-    updateFile(state, action: PayloadAction<{id: number, file: FileType}>) {
-      const index = state.files.findIndex(fl => fl.id === action.payload.id)
+    updateFile(state, action: PayloadAction<{fileId: number, file: FileType}>) {
+      const index = state.files.findIndex(fl => fl.id === action.payload.fileId)
 
       if(index > -1) {
         state.files[index] = {...action.payload.file}

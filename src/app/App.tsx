@@ -1,11 +1,11 @@
 import React from 'react';
 import s from './app.module.scss'
-import {Files} from "features/Files/Files";
+import {Pages} from "app/Pages/Pages";
 
 function App() {
   return (
     <div className={s.appContainer}>
-      <Files/>
+      <Pages/>
     </div>
   );
 }
