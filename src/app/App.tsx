@@ -1,8 +1,12 @@
 import React from 'react';
+import s from './app.module.scss'
+import {Files} from "features/Files/Files";
 
 function App() {
   return (
-    <div></div>
+    <div className={s.appContainer}>
+      <Files/>
+    </div>
   );
 }
 
