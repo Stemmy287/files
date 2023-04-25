@@ -1,4 +1,5 @@
 import {instance} from "common/constants/instanceApi";
+import {AxiosResponse} from "axios";
 
 export const filesApi = {
   getFiles() {
@@ -10,13 +11,13 @@ export const filesApi = {
       .then(res => res.data)
   },
   createFile(data: FileType) {
-    return instance.post('', data)
+    return instance.post<'', AxiosResponse<FileType>, FileType>('', data)
   },
   deleteFile(id: number) {
     return instance.delete(id.toString())
   },
   updateFile(id: number, data: UpdateFileType) {
-    return instance.patch(id.toString(), data)
+    return instance.patch<'', AxiosResponse<FileType>, UpdateFileType>(id.toString(), data)
   }
 
 }
