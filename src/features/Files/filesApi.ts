@@ -12,12 +12,14 @@ export const filesApi = {
   },
   createFile(data: FileType) {
     return instance.post<'', AxiosResponse<FileType>, FileType>('', data)
+      .then(res => res.data)
   },
   deleteFile(id: number) {
     return instance.delete(id.toString())
   },
   updateFile(id: number, data: UpdateFileType) {
     return instance.patch<'', AxiosResponse<FileType>, UpdateFileType>(id.toString(), data)
+      .then(res => res.data)
   }
 
 }
