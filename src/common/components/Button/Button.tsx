@@ -3,11 +3,14 @@ import s from './button.module.scss'
 
 type PropsType = {
   title: string
+  callback?: () => void
+  type?: "button" | "submit" | "reset"
 }
 
-export const Button:FC<PropsType> = ({title}) => {
+export const Button:FC<PropsType> = ({title, callback, type}) => {
+
   return (
-    <button className={s.btn}>{title}</button>
+    <button type={type || 'button'} className={s.btn} onClick={callback}>{title}</button>
   );
 };
 

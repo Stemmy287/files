@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import s from 'features/Files/files.module.scss'
 import {useAppDispatch} from "hooks/useAppDispatch";
 import {fetchFilesTC} from "features/Files/filesSlice";
@@ -13,6 +13,8 @@ export const Files = () => {
 
   const files = useAppSelector(filesSelector)
 
+  const [isActive, setIsActive] = useState(false)
+
   const dispatch = useAppDispatch()
 
   useEffect(() => {
@@ -21,12 +23,12 @@ export const Files = () => {
 
   return (
     <div className={s.filesContainer}>
-      <Button title={'Добавить файл'}/>
+      <Button title={'Добавить файл'} callback={() => {setIsActive(true)}}/>
       <div className={s.filesList}>
         {files.map(fl => <File key={fl.id} file={fl}/> )}
       </div>
-      <PopUp isActive={true} setIsActive={() => {}}>
-        <AddFile/>
+      <PopUp isActive={isActive} onClose={() => setIsActive(false)}>
+        <AddFile onClose={() => setIsActive(false)}/>
       </PopUp>
     </div>
   );

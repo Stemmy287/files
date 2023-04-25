@@ -61,7 +61,7 @@ const slice = createSlice({
   },
   reducers: {
     setFiles(state, action: PayloadAction<{files: FileType[]}>) {
-      state.files = action.payload.files
+      state.files = action.payload.files.reverse()
     },
     setFile(state, action: PayloadAction<{file: FileType}>){
       state.file = action.payload.file

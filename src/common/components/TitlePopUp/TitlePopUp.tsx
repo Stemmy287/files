@@ -4,17 +4,17 @@ import close from "common/icons/Close.svg";
 
 type TitlePopUpType = {
   title: string
-  onCloseHandler: () => void
+  onClose: () => void
 }
 
 export const TitlePopUp: FC<TitlePopUpType> = ({
                                           title,
-                                          onCloseHandler
+                                          onClose
                                         }) => {
   return (
     <div className={s.header}>
       <h4>{title}</h4>
-      <img src={close} alt={'close'} onClick={onCloseHandler}/>
+      <img src={close} alt={'close'} onClick={onClose}/>
     </div>
   );
 };

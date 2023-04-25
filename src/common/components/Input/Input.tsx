@@ -1,11 +1,11 @@
-import React, {FC} from 'react';
+import React, {ChangeEvent, FC} from 'react';
 import s from './input.module.scss'
 
 type PropsType = {
   component: 'input' | 'textarea'
   title: string
   value: string
-  onChange: () => void
+  onChange: (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => void
   name: string
 }
 

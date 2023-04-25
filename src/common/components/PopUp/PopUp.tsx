@@ -3,18 +3,18 @@ import s from 'common/components/PopUp/popUp.module.scss'
 
 type PropsType = {
   isActive: boolean
-  setIsActive: (isActive: boolean) => void
+  onClose: () => void
   children: JSX.Element
 }
 
 export const PopUp: FC<PropsType> = ({
                                        isActive,
-                                       setIsActive,
+                                       onClose,
                                        children
                                      }) => {
 
   return (
-    <div className={isActive ? `${s.modal} ${s.active}` : s.modal} onClick={() => setIsActive(false)}>
+    <div className={isActive ? `${s.modal} ${s.active}` : s.modal} onClick={onClose}>
       <div className={s.content} onClick={(e) => {e.stopPropagation()}}>
         {children}
       </div>
