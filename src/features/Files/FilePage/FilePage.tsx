@@ -8,6 +8,8 @@ import {fileSelector} from "features/Files/filesSelectors";
 import {Button} from "common/components/Button/Button";
 import {PopUp} from "common/components/PopUp/PopUp";
 import {AddOrEditFile} from "common/components/AddOrEditFile/AddOrEditFile";
+import {BackLink} from "common/components/BackLink/BackLink";
+import {PATH} from "common/constants/path";
 
 export const FilePage = () => {
 
@@ -29,13 +31,14 @@ export const FilePage = () => {
 
   return (
     <div className={s.container}>
+      <BackLink link={PATH.MAIN} where={'files page'}/>
       <div className={s.content}>
         <h1>{file.title}</h1>
         <p>{file.text}</p>
       </div>
       <Button title={'Изменить файл'} callback={() => setIsActive(true)}/>
       <PopUp isActive={isActive} onClose={() => setIsActive(false)}>
-        <AddOrEditFile onClose={() => setIsActive(false)} file={file} isEdit/>
+        <AddOrEditFile title={'Изменить файл'} buttonTitle={'Изменить'} onClose={() => setIsActive(false)} file={file} isEdit/>
       </PopUp>
     </div>
   );

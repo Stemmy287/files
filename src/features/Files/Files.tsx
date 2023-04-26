@@ -28,7 +28,7 @@ export const Files = () => {
         {files.map(fl => <File key={fl.id} file={fl}/>)}
       </div>
       <PopUp isActive={isActive} onClose={() => setIsActive(false)}>
-        <AddOrEditFile onClose={() => setIsActive(false)}/>
+        <AddOrEditFile title={'Добавить файл'} buttonTitle={'Добавить'} onClose={() => setIsActive(false)}/>
       </PopUp>
     </div>
   );

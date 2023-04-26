@@ -13,9 +13,11 @@ type PropsType = {
   onClose: () => void
   isEdit?: boolean
   file?: FileType
+  title: string
+  buttonTitle: string
 }
 
-export const AddOrEditFile:FC<PropsType> = ({onClose, isEdit, file}) => {
+export const AddOrEditFile:FC<PropsType> = ({onClose, isEdit, file, title, buttonTitle}) => {
 
   const dispatch = useAppDispatch()
 
@@ -47,7 +49,7 @@ export const AddOrEditFile:FC<PropsType> = ({onClose, isEdit, file}) => {
 
   return (
     <div className={s.container}>
-      <TitlePopUp title={'Добавить файл'} onClose={onClose}/>
+      <TitlePopUp title={title} onClose={onClose}/>
       <form onSubmit={formik.handleSubmit}>
         <div className={s.content}>
           <div>
@@ -59,7 +61,7 @@ export const AddOrEditFile:FC<PropsType> = ({onClose, isEdit, file}) => {
             {formik.touched.text && formik.errors.text && <div className={s.error}>{formik.errors.text}</div>}
           </div>
           <Button
-            title={'Добавить'}
+            title={buttonTitle}
             type={'submit'}
             disabled={!!formik.errors.title || !!formik.errors.text || !formik.values.title || !formik.values.text}/>
         </div>
