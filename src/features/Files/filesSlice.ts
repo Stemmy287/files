@@ -1,5 +1,5 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {filesApi, FileType, UpdateFileType} from "features/Files/filesApi";
+import {filesApi, FileType} from "features/Files/filesApi";
 
 export const fetchFilesTC = createAsyncThunk('files/fetchFiles', async (param, {dispatch, rejectWithValue}) => {
 
@@ -42,11 +42,11 @@ export const deleteFileTC = createAsyncThunk('files/fetchFiles', async (param: {
 
 })
 
-export const updateFileTC = createAsyncThunk('files/fetchFiles', async (param: {fileId: number, modelFile: UpdateFileType}, {dispatch, rejectWithValue}) => {
+export const updateFileTC = createAsyncThunk('files/fetchFiles', async (param: FileType, {dispatch, rejectWithValue}) => {
 
   try {
-    const res = await filesApi.updateFile(param.fileId, param.modelFile)
-    dispatch(updateFile({fileId: param.fileId, file: res}))
+    const res = await filesApi.updateFile(param)
+    dispatch(updateFile({file: res}))
   } catch (e) {
     return rejectWithValue(null)
   }
@@ -76,12 +76,8 @@ const slice = createSlice({
         state.files.splice(index, 1)
       }
     },
-    updateFile(state, action: PayloadAction<{fileId: number, file: FileType}>) {
-      const index = state.files.findIndex(fl => fl.id === action.payload.fileId)
-
-      if(index > -1) {
-        state.files[index] = {...action.payload.file}
-      }
+    updateFile(state, action: PayloadAction<{file: FileType}>) {
+      state.file = action.payload.file
     }
   }
 })

@@ -17,8 +17,8 @@ export const filesApi = {
   deleteFile(id: number) {
     return instance.delete(id.toString())
   },
-  updateFile(id: number, data: UpdateFileType) {
-    return instance.patch<'', AxiosResponse<FileType>, UpdateFileType>(id.toString(), data)
+  updateFile(file: FileType) {
+    return instance.patch<'', AxiosResponse<FileType>, UpdateFileType>(file.id.toString(), {title: file.title, text: file.text})
       .then(res => res.data)
   }
 

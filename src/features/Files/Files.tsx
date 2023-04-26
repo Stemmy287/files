@@ -7,7 +7,7 @@ import {filesSelector} from "features/Files/filesSelectors";
 import {File} from "features/Files/File/File";
 import {Button} from "common/components/Button/Button";
 import {PopUp} from "common/components/PopUp/PopUp";
-import {AddFile} from "common/components/AddFile/AddFile";
+import {AddOrEditFile} from "common/components/AddOrEditFile/AddOrEditFile";
 
 export const Files = () => {
 
@@ -28,7 +28,7 @@ export const Files = () => {
         {files.map(fl => <File key={fl.id} file={fl}/>)}
       </div>
       <PopUp isActive={isActive} onClose={() => setIsActive(false)}>
-        <AddFile onClose={() => setIsActive(false)}/>
+        <AddOrEditFile onClose={() => setIsActive(false)}/>
       </PopUp>
     </div>
   );

@@ -1,19 +1,21 @@
-import React, {FC} from 'react';
-import s from './addFile.module.scss'
+import React, {FC, useEffect} from 'react';
+import s from 'common/components/AddOrEditFile/addOrEditFile.module.scss'
 import {TitlePopUp} from "common/components/TitlePopUp/TitlePopUp";
 import {InputForm} from "common/components/InputForm/InputForm";
 import {Button} from "common/components/Button/Button";
 import {useFormik} from "formik";
 import {useAppDispatch} from "hooks/useAppDispatch";
-import {createFileTC} from "features/Files/filesSlice";
+import {createFileTC, updateFileTC} from "features/Files/filesSlice";
 import * as Yup from 'yup';
+import {FileType} from "features/Files/filesApi";
 
 type PropsType = {
   onClose: () => void
-
+  isEdit?: boolean
+  file?: FileType
 }
 
-export const AddFile:FC<PropsType> = ({onClose}) => {
+export const AddOrEditFile:FC<PropsType> = ({onClose, isEdit, file}) => {
 
   const dispatch = useAppDispatch()
 
@@ -24,14 +26,24 @@ export const AddFile:FC<PropsType> = ({onClose}) => {
     },
     validationSchema: Yup.object({
       title: Yup.string().max(12, 'Максимальное количество символов 12').required('Обязательное поле'),
-      text: Yup.string().required('Обязательное поле')
+      text: Yup.string().max(2000, 'Максимальное количество символов 2000').required('Обязательное поле')
     }),
     onSubmit(values) {
-      dispatch(createFileTC({file: {...values, id: +new Date()}}))
+      if (isEdit && file) {
+        dispatch(updateFileTC({...values, id: file.id}))
+      } else {
+        dispatch(createFileTC({file: {...values, id: +new Date()}}))
+      }
       formik.resetForm()
       onClose()
     }
   })
+
+  useEffect(() => {
+    if (file){
+      formik.setValues({title: file.title, text: file.text})
+    }
+  }, [file?.title, file?.text, file])
 
   return (
     <div className={s.container}>
