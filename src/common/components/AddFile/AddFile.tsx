@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import s from './addFile.module.scss'
 import {TitlePopUp} from "common/components/TitlePopUp/TitlePopUp";
-import {Input} from "common/components/Input/Input";
+import {InputForm} from "common/components/InputForm/InputForm";
 import {Button} from "common/components/Button/Button";
 import {useFormik} from "formik";
 import {useAppDispatch} from "hooks/useAppDispatch";
@@ -10,6 +10,7 @@ import * as Yup from 'yup';
 
 type PropsType = {
   onClose: () => void
+
 }
 
 export const AddFile:FC<PropsType> = ({onClose}) => {
@@ -38,11 +39,11 @@ export const AddFile:FC<PropsType> = ({onClose}) => {
       <form onSubmit={formik.handleSubmit}>
         <div className={s.content}>
           <div>
-            <Input component={'input'} title={'Название'} dataFormik={{...formik.getFieldProps('title')}}/>
+            <InputForm component={'input'} title={'Название'} dataFormik={{...formik.getFieldProps('title')}}/>
             {formik.touched.title && formik.errors.title && <div className={s.error}>{formik.errors.title}</div>}
           </div>
           <div>
-            <Input component={'textarea'} title={'Контент'} dataFormik={{...formik.getFieldProps('text')}}/>
+            <InputForm component={'textarea'} title={'Контент'} dataFormik={{...formik.getFieldProps('text')}}/>
             {formik.touched.text && formik.errors.text && <div className={s.error}>{formik.errors.text}</div>}
           </div>
           <Button

@@ -1,18 +1,18 @@
 import React, {FC} from 'react';
-import s from './input.module.scss'
+import s from 'common/components/InputForm/inputForm.module.scss'
 import {FieldInputProps} from "formik";
 
 type PropsType = {
   component: 'input' | 'textarea'
-  title: string
+  title?: string
   dataFormik: FieldInputProps<any>
 
 }
 
-export const Input: FC<PropsType> = ({title, component, dataFormik}) => {
+export const InputForm: FC<PropsType> = ({title, component, dataFormik}) => {
   return (
     <div className={s.inputContainer}>
-      <span>{title}</span>
+      {title && <span>{title}</span>}
       {component === 'input'
         ? <input type="text" {...dataFormik}/>
         : <textarea {...dataFormik}></textarea>

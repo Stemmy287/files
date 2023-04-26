@@ -1,9 +1,11 @@
 import React, {useEffect} from 'react';
+import s from './filePage.module.scss'
 import {useParams} from "react-router-dom";
 import {useAppDispatch} from "hooks/useAppDispatch";
 import {fetchFileTC} from "features/Files/filesSlice";
 import {useAppSelector} from "hooks/useAppSelector";
 import {fileSelector} from "features/Files/filesSelectors";
+import {Button} from "common/components/Button/Button";
 
 export const FilePage = () => {
 
@@ -18,9 +20,12 @@ export const FilePage = () => {
   }, [dispatch, fileId])
 
   return (
-    <div>
-      <h1>{file.title}</h1>
-      <p>{file.text}</p>
+    <div className={s.container}>
+      <div className={s.content}>
+        <h1>{file.title}</h1>
+        <p>{file.text}</p>
+      </div>
+      <Button title={'Изменить файл'}/>
     </div>
   );
 };

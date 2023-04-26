@@ -22,7 +22,7 @@ export const Files = () => {
   }, [dispatch])
 
   return (
-    <div className={s.filesContainer}>
+    <div className={s.container}>
       <Button title={'Добавить файл'} callback={() => {setIsActive(true)}}/>
       <div className={s.filesList}>
         {files.map(fl => <File key={fl.id} file={fl}/>)}
