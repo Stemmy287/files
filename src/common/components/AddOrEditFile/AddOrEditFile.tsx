@@ -1,4 +1,4 @@
-import React, {FC, useEffect} from 'react';
+import React, {FC} from 'react';
 import s from 'common/components/AddOrEditFile/addOrEditFile.module.scss'
 import {TitlePopUp} from "common/components/TitlePopUp/TitlePopUp";
 import {Input} from "common/components/Input/Input";
@@ -17,14 +17,14 @@ type PropsType = {
   buttonTitle: string
 }
 
-export const AddOrEditFile:FC<PropsType> = ({onClose, isEdit, file, title, buttonTitle}) => {
+export const AddOrEditFile: FC<PropsType> = ({onClose, isEdit, file, title, buttonTitle}) => {
 
   const dispatch = useAppDispatch()
 
   const formik = useFormik({
     initialValues: {
-      title: '',
-      text: ''
+      title: file?.title || '',
+      text: file?.text || ''
     },
     validationSchema: Yup.object({
       title: Yup.string().max(12, 'Максимальное количество символов 12').required('Обязательное поле'),
@@ -40,12 +40,6 @@ export const AddOrEditFile:FC<PropsType> = ({onClose, isEdit, file, title, butto
       onClose()
     }
   })
-
-  useEffect(() => {
-    if (file){
-      formik.setValues({title: file.title, text: file.text})
-    }
-  }, [file?.title, file?.text, file])
 
   return (
     <div className={s.container}>

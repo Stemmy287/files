@@ -53,9 +53,16 @@ export const FilePage = () => {
         {getHighlightedText(file.text, filter)}
       </div>
       <Button title={'Изменить файл'} callback={() => setIsActive(true)}/>
-      <PopUp isActive={isActive} onClose={() => setIsActive(false)}>
-        <AddOrEditFile title={'Изменить файл'} buttonTitle={'Изменить'} onClose={() => setIsActive(false)} file={file} isEdit/>
-      </PopUp>
+      {isActive &&
+        <PopUp onClose={() => setIsActive(false)}>
+          <AddOrEditFile
+            title={'Изменить файл'}
+            buttonTitle={'Изменить'}
+            onClose={() => setIsActive(false)}
+            file={file}
+            isEdit
+          />
+      </PopUp>}
     </div>
   );
 };

@@ -31,13 +31,14 @@ export const File:FC<PropsType> = ({file}) => {
         <p>{text}</p>
       </div>
       <DeleteIcon className={s.deleteIcon} onClick={() => setIsActive(true)}/>
-      <PopUp isActive={isActive} onClose={() => {setIsActive(false)}}>
-        <Notification
-          title={'Удалить файл'}
-          message={'Вы действительно хотите удалить файл'}
-          callback={deleteHandler} onClose={() => setIsActive(false)}
-        />
-      </PopUp>
+      {isActive &&
+        <PopUp onClose={() => {setIsActive(false)}}>
+          <Notification
+            title={'Удалить файл'}
+            message={'Вы действительно хотите удалить файл'}
+            callback={deleteHandler} onClose={() => setIsActive(false)}
+          />
+      </PopUp>}
     </div>
   );
 };

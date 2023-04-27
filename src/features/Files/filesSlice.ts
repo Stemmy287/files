@@ -1,65 +1,67 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {filesApi, FileType} from "features/Files/filesApi";
 import {setIsLoading} from "app/appSlice";
+import {AxiosError} from "axios";
+import {errorHandler} from "common/utils/errorHandler";
 
-export const fetchFilesTC = createAsyncThunk('files/fetchFiles', async (param, {dispatch, rejectWithValue}) => {
+export const fetchFilesTC = createAsyncThunk('files/fetchFiles', async (param, {dispatch}) => {
 
   dispatch(setIsLoading({isLoading: true}))
 
   try {
     const res = await filesApi.getFiles()
     dispatch(setFiles({files: res}))
-    dispatch(setIsLoading({isLoading: false}))
   } catch (e) {
+    errorHandler(e as Error | AxiosError<{ error: string }>, dispatch)
+  } finally {
     dispatch(setIsLoading({isLoading: false}))
-    return rejectWithValue(null)
   }
 
 })
-export const fetchFileTC = createAsyncThunk('files/fetchFiles', async (param: {fileId: number}, {dispatch, rejectWithValue}) => {
+export const fetchFileTC = createAsyncThunk('files/fetchFiles', async (param: {fileId: number}, {dispatch}) => {
 
   dispatch(setIsLoading({isLoading: true}))
 
   try {
     const res = await filesApi.getFile(param.fileId)
     dispatch(setFile({file: res}))
-    dispatch(setIsLoading({isLoading: false}))
   } catch (e) {
+    errorHandler(e as Error | AxiosError<{ error: string }>, dispatch)
+  } finally {
     dispatch(setIsLoading({isLoading: false}))
-    return rejectWithValue(null)
   }
 
 })
-export const createFileTC = createAsyncThunk('files/fetchFiles', async (param: {file: FileType}, {dispatch, rejectWithValue}) => {
+export const createFileTC = createAsyncThunk('files/fetchFiles', async (param: {file: FileType}, {dispatch}) => {
 
   dispatch(setIsLoading({isLoading: true}))
 
   try {
     const res = await filesApi.createFile(param.file)
     dispatch(createFile({file: res}))
-    dispatch(setIsLoading({isLoading: false}))
   } catch (e) {
+    errorHandler(e as Error | AxiosError<{ error: string }>, dispatch)
+  } finally {
     dispatch(setIsLoading({isLoading: false}))
-    return rejectWithValue(null)
   }
 
 })
-export const deleteFileTC = createAsyncThunk('files/fetchFiles', async (param: {fileId: number}, {dispatch, rejectWithValue}) => {
+export const deleteFileTC = createAsyncThunk('files/fetchFiles', async (param: {fileId: number}, {dispatch}) => {
 
   dispatch(setIsLoading({isLoading: true}))
 
   try {
     await filesApi.deleteFile(param.fileId)
     dispatch(deleteFile({fileId: param.fileId}))
-    dispatch(setIsLoading({isLoading: false}))
   } catch (e) {
+    errorHandler(e as Error | AxiosError<{ error: string }>, dispatch)
+  } finally {
     dispatch(setIsLoading({isLoading: false}))
-    return rejectWithValue(null)
   }
 
 })
 
-export const updateFileTC = createAsyncThunk('files/fetchFiles', async (param: FileType, {dispatch, rejectWithValue}) => {
+export const updateFileTC = createAsyncThunk('files/fetchFiles', async (param: FileType, {dispatch}) => {
 
   dispatch(setIsLoading({isLoading: true}))
 
@@ -67,7 +69,9 @@ export const updateFileTC = createAsyncThunk('files/fetchFiles', async (param: F
     const res = await filesApi.updateFile(param)
     dispatch(updateFile({file: res}))
   } catch (e) {
-    return rejectWithValue(null)
+    errorHandler(e as Error | AxiosError<{ error: string }>, dispatch)
+  } finally {
+    dispatch(setIsLoading({isLoading: false}))
   }
 
 })

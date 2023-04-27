@@ -23,13 +23,16 @@ export const Files = () => {
 
   return (
     <div className={s.container}>
-      <Button title={'Добавить файл'} callback={() => {setIsActive(true)}}/>
+      <Button title={'Добавить файл'} callback={() => {
+        setIsActive(true)
+      }}/>
       <div className={s.filesList}>
         {files.map(fl => <File key={fl.id} file={fl}/>)}
       </div>
-      <PopUp isActive={isActive} onClose={() => setIsActive(false)}>
-        <AddOrEditFile title={'Добавить файл'} buttonTitle={'Добавить'} onClose={() => setIsActive(false)}/>
-      </PopUp>
+      {isActive &&
+        <PopUp onClose={() => setIsActive(false)}>
+          <AddOrEditFile title={'Добавить файл'} buttonTitle={'Добавить'} onClose={() => setIsActive(false)}/>
+        </PopUp>}
     </div>
   );
 };
