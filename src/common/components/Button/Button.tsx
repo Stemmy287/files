@@ -9,7 +9,13 @@ type PropsType = {
   disabled?: boolean
 }
 
-export const Button:FC<PropsType> = ({title, callback, type, isNoBackGround, disabled}) => {
+export const Button: FC<PropsType> = ({
+                                        title,
+                                        callback,
+                                        type,
+                                        isNoBackGround,
+                                        disabled
+                                      }) => {
 
   return (
     <button

@@ -2,6 +2,7 @@ import {instance} from "common/constants/instanceApi";
 import {AxiosResponse} from "axios";
 
 export const filesApi = {
+
   getFiles() {
     return instance.get<FileType[]>('')
       .then(res => res.data)

@@ -38,7 +38,6 @@ export const File:FC<PropsType> = ({file}) => {
           callback={deleteHandler} onClose={() => setIsActive(false)}
         />
       </PopUp>
-
     </div>
   );
 };

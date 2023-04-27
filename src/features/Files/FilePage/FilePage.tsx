@@ -15,13 +15,22 @@ import {Input} from "common/components/Input/Input";
 export const FilePage = () => {
 
   const [isActive, setIsActive] = useState(false)
-  const [inputValue, setInputValue] = useState('')
+  const [filter, setFilter] = useState('')
 
   const file = useAppSelector(fileSelector)
 
   const {fileId} = useParams()
 
   const dispatch = useAppDispatch()
+
+  const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setFilter(e.currentTarget.value)
+  }
+
+  const getHighlightedText = (text: string, highlight: string) => {
+    const parts = text?.split(new RegExp(`(${highlight})`, 'gi'));
+    return <p>{parts?.map(part => part?.toLowerCase() === highlight.toLowerCase() ? <span className={s.highLight}>{part}</span> : part)}</p>;
+  }
 
   useEffect(() => {
     fileId && dispatch(fetchFileTC({fileId: +fileId}))
@@ -31,26 +40,17 @@ export const FilePage = () => {
     dispatch(fetchFilesTC())
   }, [dispatch])
 
-  const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.currentTarget.value)
-  }
-
-  const getHighlightedText = (text: string, highlight: string) => {
-    const parts = text?.split(new RegExp(`(${highlight})`, 'gi'));
-    return <p>{parts?.map(part => part?.toLowerCase() === highlight.toLowerCase() ? <span className={s.highLight}>{part}</span> : part)}</p>;
-  }
-
   return (
     <div className={s.container}>
       <BackLink link={PATH.MAIN} where={'files page'}/>
       <Input
         title={'поиск по файлу'}
         component={'input'}
-        dataFormik={{name: 'matchValue', value: inputValue, onBlur: () => {}, onChange: onChangeHandler}}
+        dataFormik={{name: 'matchValue', value: filter, onBlur: () => {}, onChange: onChangeHandler}}
       />
       <div className={s.content}>
         <h1>{file.title}</h1>
-        {getHighlightedText(file.text, inputValue)}
+        {getHighlightedText(file.text, filter)}
       </div>
       <Button title={'Изменить файл'} callback={() => setIsActive(true)}/>
       <PopUp isActive={isActive} onClose={() => setIsActive(false)}>

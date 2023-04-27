@@ -11,9 +11,9 @@ import {AddOrEditFile} from "common/components/AddOrEditFile/AddOrEditFile";
 
 export const Files = () => {
 
-  const files = useAppSelector(filesSelector)
-
   const [isActive, setIsActive] = useState(false)
+
+  const files = useAppSelector(filesSelector)
 
   const dispatch = useAppDispatch()
 
