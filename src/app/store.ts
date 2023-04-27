@@ -2,9 +2,11 @@ import {AnyAction, combineReducers} from "redux";
 import {configureStore, ThunkDispatch} from "@reduxjs/toolkit";
 import thunkMiddleware from "redux-thunk"
 import {filesReducer} from "features/Files/filesSlice";
+import {appReducer} from "app/appSlice";
 
 const rootReducers = combineReducers({
-  files: filesReducer
+  files: filesReducer,
+  app: appReducer
 })
 
 export const store = configureStore({
