@@ -1,48 +1,67 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {filesApi, FileType} from "features/Files/filesApi";
+import {setIsLoading} from "app/appSlice";
 
 export const fetchFilesTC = createAsyncThunk('files/fetchFiles', async (param, {dispatch, rejectWithValue}) => {
+
+  dispatch(setIsLoading({isLoading: true}))
 
   try {
     const res = await filesApi.getFiles()
     dispatch(setFiles({files: res}))
+    dispatch(setIsLoading({isLoading: false}))
   } catch (e) {
+    dispatch(setIsLoading({isLoading: false}))
     return rejectWithValue(null)
   }
 
 })
 export const fetchFileTC = createAsyncThunk('files/fetchFiles', async (param: {fileId: number}, {dispatch, rejectWithValue}) => {
 
+  dispatch(setIsLoading({isLoading: true}))
+
   try {
     const res = await filesApi.getFile(param.fileId)
     dispatch(setFile({file: res}))
+    dispatch(setIsLoading({isLoading: false}))
   } catch (e) {
+    dispatch(setIsLoading({isLoading: false}))
     return rejectWithValue(null)
   }
 
 })
 export const createFileTC = createAsyncThunk('files/fetchFiles', async (param: {file: FileType}, {dispatch, rejectWithValue}) => {
 
+  dispatch(setIsLoading({isLoading: true}))
+
   try {
     const res = await filesApi.createFile(param.file)
     dispatch(createFile({file: res}))
+    dispatch(setIsLoading({isLoading: false}))
   } catch (e) {
+    dispatch(setIsLoading({isLoading: false}))
     return rejectWithValue(null)
   }
 
 })
 export const deleteFileTC = createAsyncThunk('files/fetchFiles', async (param: {fileId: number}, {dispatch, rejectWithValue}) => {
 
+  dispatch(setIsLoading({isLoading: true}))
+
   try {
     await filesApi.deleteFile(param.fileId)
     dispatch(deleteFile({fileId: param.fileId}))
+    dispatch(setIsLoading({isLoading: false}))
   } catch (e) {
+    dispatch(setIsLoading({isLoading: false}))
     return rejectWithValue(null)
   }
 
 })
 
 export const updateFileTC = createAsyncThunk('files/fetchFiles', async (param: FileType, {dispatch, rejectWithValue}) => {
+
+  dispatch(setIsLoading({isLoading: true}))
 
   try {
     const res = await filesApi.updateFile(param)

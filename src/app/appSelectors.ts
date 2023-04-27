@@ -1,3 +1,3 @@
 import {AppRootStateType} from "app/store";
 
-const isLoading = (state: AppRootStateType) => state.app.isLoading
+export const isLoadingSelector = (state: AppRootStateType) => state.app.isLoading

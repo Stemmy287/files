@@ -29,7 +29,7 @@ export const FilePage = () => {
 
   const getHighlightedText = (text: string, highlight: string) => {
     const parts = text?.split(new RegExp(`(${highlight})`, 'gi'));
-    return <p>{parts?.map(part => part?.toLowerCase() === highlight.toLowerCase() ? <span className={s.highLight}>{part}</span> : part)}</p>;
+    return <p>{parts?.map((part, i) => part?.toLowerCase() === highlight.toLowerCase() ? <span key={i} className={s.highLight}>{part}</span> : part)}</p>;
   }
 
   useEffect(() => {
