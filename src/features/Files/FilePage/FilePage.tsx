@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import s from './filePage.module.scss'
 import {useParams} from "react-router-dom";
 import {useAppDispatch} from "hooks/useAppDispatch";
@@ -10,10 +10,12 @@ import {PopUp} from "common/components/PopUp/PopUp";
 import {AddOrEditFile} from "common/components/AddOrEditFile/AddOrEditFile";
 import {BackLink} from "common/components/BackLink/BackLink";
 import {PATH} from "common/constants/path";
+import {Input} from "common/components/Input/Input";
 
 export const FilePage = () => {
 
   const [isActive, setIsActive] = useState(false)
+  const [inputValue, setInputValue] = useState('')
 
   const file = useAppSelector(fileSelector)
 
@@ -29,12 +31,26 @@ export const FilePage = () => {
     dispatch(fetchFilesTC())
   }, [dispatch])
 
+  const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.currentTarget.value)
+  }
+
+  const getHighlightedText = (text: string, highlight: string) => {
+    const parts = text?.split(new RegExp(`(${highlight})`, 'gi'));
+    return <p>{parts?.map(part => part?.toLowerCase() === highlight.toLowerCase() ? <span className={s.highLight}>{part}</span> : part)}</p>;
+  }
+
   return (
     <div className={s.container}>
       <BackLink link={PATH.MAIN} where={'files page'}/>
+      <Input
+        title={'поиск по файлу'}
+        component={'input'}
+        dataFormik={{name: 'matchValue', value: inputValue, onBlur: () => {}, onChange: onChangeHandler}}
+      />
       <div className={s.content}>
         <h1>{file.title}</h1>
-        <p>{file.text}</p>
+        {getHighlightedText(file.text, inputValue)}
       </div>
       <Button title={'Изменить файл'} callback={() => setIsActive(true)}/>
       <PopUp isActive={isActive} onClose={() => setIsActive(false)}>
@@ -43,4 +59,9 @@ export const FilePage = () => {
     </div>
   );
 };
+
+
+
+
+
 

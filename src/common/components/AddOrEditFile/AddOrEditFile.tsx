@@ -1,7 +1,7 @@
 import React, {FC, useEffect} from 'react';
 import s from 'common/components/AddOrEditFile/addOrEditFile.module.scss'
 import {TitlePopUp} from "common/components/TitlePopUp/TitlePopUp";
-import {InputForm} from "common/components/InputForm/InputForm";
+import {Input} from "common/components/Input/Input";
 import {Button} from "common/components/Button/Button";
 import {useFormik} from "formik";
 import {useAppDispatch} from "hooks/useAppDispatch";
@@ -53,11 +53,11 @@ export const AddOrEditFile:FC<PropsType> = ({onClose, isEdit, file, title, butto
       <form onSubmit={formik.handleSubmit}>
         <div className={s.content}>
           <div>
-            <InputForm component={'input'} title={'Название'} dataFormik={{...formik.getFieldProps('title')}}/>
+            <Input component={'input'} title={'Название'} dataFormik={{...formik.getFieldProps('title')}}/>
             {formik.touched.title && formik.errors.title && <div className={s.error}>{formik.errors.title}</div>}
           </div>
           <div>
-            <InputForm component={'textarea'} title={'Контент'} dataFormik={{...formik.getFieldProps('text')}}/>
+            <Input component={'textarea'} title={'Контент'} dataFormik={{...formik.getFieldProps('text')}}/>
             {formik.touched.text && formik.errors.text && <div className={s.error}>{formik.errors.text}</div>}
           </div>
           <Button

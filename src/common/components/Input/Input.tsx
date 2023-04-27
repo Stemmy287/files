@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import s from 'common/components/InputForm/inputForm.module.scss'
+import s from 'common/components/Input/input.module.scss'
 import {FieldInputProps} from "formik";
 
 type PropsType = {
@@ -9,7 +9,8 @@ type PropsType = {
 
 }
 
-export const InputForm: FC<PropsType> = ({title, component, dataFormik}) => {
+export const Input: FC<PropsType> = ({title, component, dataFormik}) => {
+
   return (
     <div className={s.inputContainer}>
       {title && <span>{title}</span>}
